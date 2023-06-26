@@ -47,10 +47,8 @@ class TTT:
             if self.current_tile.is_valid():
                 self.current_tile.choose()
                 self.get_next_player()
-                
-            
-        elif event.type == pygame.MOUSEBUTTONUP:
-            self.current_tile.reset()
+                self.board.check_win()
+
       
         elif event.type == pygame.MOUSEMOTION:
             self.current_tile = self.board.get_tile()

@@ -7,6 +7,8 @@ GOLD = (255,215,0)
 
 class Tile(pygame.sprite.Sprite):
 
+    tile_num = 0
+
     def __init__(self, interface, x, y, cell_size, row, column, board):
         super().__init__()
         self.interface = interface
@@ -28,15 +30,29 @@ class Tile(pygame.sprite.Sprite):
         self.rect.y = self.y
 
         self.set = False
-        self.symbol = None
-  
+        self.symbol = False
+        
+        Tile.tile_num += 1  
         self.draw(WHITE)
 
     def __str__(self) -> str:
-        return f" ({self.symbol})"
+        return f"{self.symbol}"
     
     def __repr__(self):
-        return f"Tile(sym={self.symbol})"
+        return f"{self.symbol}"
+        
+    def __hash__(self):
+        return hash(str(Tile.tile_num) + f"{' _ ' if self.symbol == None else self.symbol}")
+    
+    def __eq__(self, other):
+        if isinstance(other, Tile):
+            return self.symbol == other.symbol
+        return False
+    
+    def __ne__(self, other):
+        if isinstance(other, Tile):
+            return (self.x, self.y) != (other.x, other.y)
+        return NotImplemented
 
     def choose(self):
         self.symbol = self.interface.player.sym

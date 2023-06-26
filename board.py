@@ -27,15 +27,20 @@ class Board(pygame.sprite.Sprite):
 
         self.generate_tiles()
 
-        self.current_tile = self.interface.all_sprites.sprites()[0]
+        #self.default_tile  = self.interface.all_sprites.sprites()[0]
+        self.current_tile  = None
+
         self.clear = lambda: os.system('clear')
 
 
-    
+        self.total = 0
+        self.slices = self.get_slices()
 
     def __setitem__(self, index, item):
         row, col = index
         self.board[row, col] = item
+        self.total += 1
+        
         self.clear()
         self.display()
 
@@ -57,8 +62,6 @@ class Board(pygame.sprite.Sprite):
             pygame.draw.line(self.screen, BLACK, (x * self.cell_size, 0), (x * self.cell_size, self.height), 2) #vertical
             pygame.draw.line(self.screen, BLACK, (0, x * self.cell_size), (self.width, x * self.cell_size), 2)  #horizontal
         pygame.display.flip()
-
-
     def draw_symbols(self):
         for row in self.board:
             for tile in row:
@@ -73,23 +76,58 @@ class Board(pygame.sprite.Sprite):
                 x =  c * self.cell_size
                 y =  r * self.cell_size
                 tile = Tile(self.interface, x, y, self.cell_size, r, c, self)       
-                self.interface.all_sprites.add(tile)
-
-        
-
+                self.interface.all_sprites.add(tile)   
+  
     def get_tile(self):
         x, y = pygame.mouse.get_pos()
-
-        if (x, y) != (0, 0):
+        if (x,y) == (0, 0):
+            return None  
+        else:
             for tile in self.all_sprites:
-                if tile.check_if_inside(x, y):
-                    self.check_current(tile)
+                if tile.check_if_inside(x, y): 
+                    self.check_if_new_tile(tile)
                     return tile
-        return None   
+        
         
     
-    def check_current(self, tile):
-        if isinstance(self.current_tile, Tile) and tile != self.current_tile:
-            self.current_tile.reset()
-            self.current_tile = tile
+    def check_if_new_tile(self, new_tile):       
+        if new_tile != self.current_tile:
+            try:
+                self.current_tile.reset()
+            except:
+                pass
+            
+            self.current_tile = new_tile
+            return True
+        return False
     
+    def check_win(self):
+
+        
+        winner = True
+        for slice_ in self.slices:
+            print(slice_)
+            if all(isinstance(tile, Tile) for tile in slice_) and len(set(slice_)) == 1:
+                print("winner")
+                print(slice_)
+                print(set(slice_))
+                
+   
+        if self.total == 9:
+            print("DRAW")
+
+    def get_slices(self) -> list:
+        """This function returns a list of lists
+        The lists contained within are the diagnoals and all rows and columns
+        """
+
+        diagnoal_1 = np.diagonal(self.board)
+        diagnoal_2 = np.diagonal(np.fliplr(self.board))
+
+        slices = [diagnoal_1, diagnoal_2]
+
+        for i in range(self.grid_size):
+            slices.append(self[:, i])
+            slices.append(self[i, :])
+
+        return slices

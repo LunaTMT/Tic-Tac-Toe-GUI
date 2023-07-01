@@ -1,4 +1,4 @@
-from tic_tac_toe import TTT
+from tic_tac_toe import TicTacToe
 if __name__ == "__main__":
-        ttt = TTT()
+        ttt = TicTacToe()
         ttt.run()

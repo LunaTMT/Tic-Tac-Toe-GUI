@@ -61,11 +61,10 @@ class Tile(pygame.sprite.Sprite):
 
     def update(self, symbol):   
 
-        if self.board[self.row, self.column] == None:
+        if self.is_valid():
             self.draw(GREEN) 
             self.draw_symbol(symbol)
             return True
-            
         else:
             self.draw(RED)
             return False
@@ -79,12 +78,12 @@ class Tile(pygame.sprite.Sprite):
         pygame.draw.rect(self.image, colour, (0, 0, self.width, self.height))
 
     
-    def draw_symbol(self, current_player_symbol):
+    def draw_symbol(self, current_player_symbol=None):
         #The tile symbol must always take precendence
         
         if self.symbol:
             sym = self.get_symbol_image(self.symbol)
-        else: 
+        else:
             sym = self.get_symbol_image(current_player_symbol)
         
         sym = pygame.transform.scale(sym, (self.width, self.height))
@@ -96,14 +95,20 @@ class Tile(pygame.sprite.Sprite):
                 return pygame.image.load("images/circle.png").convert_alpha()   
             case "X":
                 return pygame.image.load("images/cross.png").convert_alpha()  
+            case "_":
+                return None
 
-   
-    
+  
     def check_if_inside(self, x, y):
         if (self.x <= x <= self.x + self.width and 
             self.y <= y <= self.y + self.height):
             return True
         return False
     
+    def default(self):
+        self.sym = False
+        self.draw(WHITE)
+
+
     def reset(self):
         self.draw(WHITE)

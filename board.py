@@ -5,6 +5,7 @@ import os
 
 BLACK = (0, 0, 0)
 WHITE = (250, 250, 250)
+YELLOW =  (255, 255, 0)
 
 class Board(pygame.sprite.Sprite):
     
@@ -16,7 +17,7 @@ class Board(pygame.sprite.Sprite):
         self.height         = interface.height
         self.screen         = interface.screen
 
-        self.grid_size = 3 #(3X3) (KXK)
+        self.grid_size = k #(3X3) (KXK)
         self.cell_size = self.width // self.grid_size
 
         # Calculate the width and height of the grid
@@ -37,20 +38,17 @@ class Board(pygame.sprite.Sprite):
         self.slices = self.get_slices()
 
     def __setitem__(self, index, item):
-        row, col = index
-        self.board[row, col] = item
+        self.board[index] = item
         self.total += 1
-        
+        print(self.total)
         self.clear()
         self.display()
 
     def __getitem__(self, index):
-        row, col = index
-        return self.board[row, col]
+        return self.board[index]
 
         
     def display(self):
-       # print(self.board)
         for r in self.board:
             for tile in r:
                 print(tile, end=' ')
@@ -78,20 +76,19 @@ class Board(pygame.sprite.Sprite):
                 tile = Tile(self.interface, x, y, self.cell_size, r, c, self)       
                 self.interface.all_sprites.add(tile)   
   
-    def get_tile(self):
+    def get_current_tile(self):
         x, y = pygame.mouse.get_pos()
         if (x,y) == (0, 0):
-            return None  
+            return Tile  
         else:
             for tile in self.all_sprites:
                 if tile.check_if_inside(x, y): 
                     self.check_if_new_tile(tile)
                     return tile
         
-        
     
     def check_if_new_tile(self, new_tile):       
-        if new_tile != self.current_tile:
+        if new_tile is not self.current_tile:
             try:
                 self.current_tile.reset()
             except:
@@ -102,21 +99,20 @@ class Board(pygame.sprite.Sprite):
         return False
     
     def check_win(self):
-
-        
-        winner = True
         for slice_ in self.slices:
-            print(slice_)
             if all(isinstance(tile, Tile) for tile in slice_) and len(set(slice_)) == 1:
-                print("winner")
-                print(slice_)
-                print(set(slice_))
+                for tile in slice_:
+                    tile.draw(YELLOW)
+                    self.interface.finished = True
+                    print(self.interface.finished)
                 
    
-        if self.total == 9:
+        if self.total == self.grid_size ** 2:
+            self.interface.finished = True
+            print(self.interface.finished)
             print("DRAW")
 
-    def get_slices(self) -> list:
+    def get_slices(self) -> list:   
         """This function returns a list of lists
         The lists contained within are the diagnoals and all rows and columns
         """
@@ -131,3 +127,6 @@ class Board(pygame.sprite.Sprite):
             slices.append(self[i, :])
 
         return slices
+    
+
+        

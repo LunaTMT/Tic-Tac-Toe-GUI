@@ -30,7 +30,8 @@ class TicTacToe:
         self.players = [Player("JIM", "X"), Player("JOHN", "O")]
         self.player = self.players[0]
         
-        self.board = Board(self, 4)
+        self.board_size = 3
+        self.board = Board(self, self.board_size)
         self.current_tile = None
 
         self.clear = lambda: os.system('clear')
@@ -54,7 +55,7 @@ class TicTacToe:
         else:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 self.all_sprites = pygame.sprite.Group()
-                self.board = Board(self, 4)
+                self.board = Board(self, self.board_size)
                 self.finished = False
 
                 

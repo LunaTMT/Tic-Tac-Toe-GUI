@@ -1,9 +1,9 @@
 class Player():
 
-    def __init__(self, name, sym) -> None:
+    def __init__(self, name, symbol) -> None:
         self.name = name
-        self.sym = sym
+        self.symbol = symbol
 
     def __str__(self):
-        return f"{self.name} : {self.sym}"
+        return f"{self.name} : {self.symbol}"
 

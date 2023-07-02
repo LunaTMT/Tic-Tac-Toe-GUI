@@ -4,74 +4,64 @@ from board import Board
 from player import Player
 import os
 
-
- 
 WHITE = (250, 250, 250)
 BLACK = (0, 0, 0)
 GREEN = (50,205,50)
 GOLD = (255,215,0)
 
-
-
 class TicTacToe:
-    def __init__(self):
+    def __init__(self, board_size):
         pygame.init()
         self._running = True
-        self.size = self.width, self.height = 600, 600
-        
-        
+        self.size = self.width, self.height = 600, 600 
         self.screen = pygame.display.set_mode(self.size, pygame.HWSURFACE | pygame.DOUBLEBUF)
         self.screen.fill(WHITE) 
 
         self.all_sprites = pygame.sprite.Group()
         
-        
         self.turn = 0
         self.players = [Player("JIM", "X"), Player("JOHN", "O")]
-        self.player = self.players[0]
-        
-        self.board_size = 3
-        self.board = Board(self, self.board_size)
+        self.current_player = self.players[0]
         self.current_tile = None
 
-        self.clear = lambda: os.system('clear')
-        
+        self.board_size = board_size
+        self.board = Board(self, board_size)
+
         self.finished = False
+        
+        self.clear = lambda: os.system('clear')
  
     def event(self, event):
         if not self.finished:
             if event.type == pygame.QUIT:
                 self._running = False
             
-            elif event.type == pygame.MOUSEBUTTONDOWN: #Select
-                if self.current_tile.is_valid():
+            elif event.type == pygame.MOUSEBUTTONDOWN: 
+                """
+                Whenever we select a tile by clicking it, we will do the following:
+                - Check to see if it a valid tile (I.e. has this already been chosen?)
+                - Change the next turn to the next player
+                - Check to see if there is a winner """
+                if not self.current_tile.set:
                     self.current_tile.choose()
                     self.get_next_player()
                     self.board.check_win()
 
             elif event.type == pygame.MOUSEMOTION:
-                self.current_tile = self.board.get_current_tile()
-                self.current_tile.update(self.player.sym)
+                """For any mouse motion we want to update the previous and new tile"""
+                self.board.update_current()
+                self.current_tile.update()
         else:
             if event.type == pygame.MOUSEBUTTONDOWN:
+                "Once the game is over, a form of reinitialisation is performed"
                 self.all_sprites = pygame.sprite.Group()
                 self.board = Board(self, self.board_size)
                 self.finished = False
-
-                
-
-            
+                self.turn = 0
 
     def loop(self):
         self.board.draw_symbols()  
-        if not self.finished:
-            self.current_tile = self.board.get_current_tile()
-            try:
-                self.current_tile.draw_symbol(self.player.sym)
-            except:   
-                pass
-            
-
+        
     def render(self):
         self.board.draw_grid()
         self.all_sprites.draw(self.screen) 
@@ -89,5 +79,12 @@ class TicTacToe:
 
 
     def get_next_player(self):
+        """
+        to modulus any number by 2 will always produce 0 or 1, 
+        this can be used in conjunction with the parity of numbers (even, odd, even, odd, even, odd -->)
+        to constatly produce an iterator switching between 0 and 1
+        This is used to switch between the players in the 2 length player list
+        """
         self.turn += 1
-        self.player = self.players[self.turn % 2]
+        self.current_player = self.players[self.turn % 2]
+        

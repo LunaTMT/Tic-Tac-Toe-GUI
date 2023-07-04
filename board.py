@@ -3,12 +3,7 @@ import pygame
 import numpy as np
 import os
 
-BLACK = (0, 0, 0)
-WHITE = (250, 250, 250)
-GOLD = (255,215,0)
-GREEN = (50,205,50)
-RED = (255, 0, 0)
-LIGHT_RED = (255,79,79)
+import colours
 
 class Board(pygame.sprite.Sprite):
     
@@ -59,8 +54,8 @@ class Board(pygame.sprite.Sprite):
         This function draws both horizontal and vertical grid lines for a board of size k
         """
         for x in range(1, self.grid_size):
-            pygame.draw.line(self.screen, BLACK, (x * self.cell_size, 0), (x * self.cell_size, self.height), 2) #vertical
-            pygame.draw.line(self.screen, BLACK, (0, x * self.cell_size), (self.width, x * self.cell_size), 2)  #horizontal
+            pygame.draw.line(self.screen, colours.BLACK, (x * self.cell_size, 0), (x * self.cell_size, self.height), 2) #vertical
+            pygame.draw.line(self.screen, colours.BLACK, (0, x * self.cell_size), (self.width, x * self.cell_size), 2)  #horizontal
         pygame.display.flip()
     
     def draw_symbols(self) -> None:
@@ -136,12 +131,12 @@ class Board(pygame.sprite.Sprite):
             
             if tiles == {"X"} or tiles == {"O"}:
                 for tile in slice_:
-                    tile.colour = GOLD
+                    tile.colour = colours.GOLD
                     self.interface.finished = True
                 return
                 
         if self.total == self.grid_size ** 2:
-            self.draw_all(LIGHT_RED)
+            self.draw_all(colours.RED)
             self.interface.finished = True
 
     def get_slices(self) -> list:   

@@ -1,14 +1,8 @@
 import pygame
-WHITE = (255, 255, 255)
-GREEN = (50,205,50)
-RED = (255, 0, 0)
-GOLD = (255,215,0)
-
+import colours
 
 class Tile(pygame.sprite.Sprite):
 
-    cross = pygame.image.load("images/cross.png").convert_alpha()  
-    circle = pygame.image.load("images/circle.png").convert_alpha()  
     tile_num = 0
 
     def __init__(self, interface, x, y, cell_size, row, column, board) -> None:
@@ -17,22 +11,24 @@ class Tile(pygame.sprite.Sprite):
         self.screen = interface.screen
         self.player = interface.current_player
         
-        self.x = x
-        self.y = y
+        #Rect image 
         self.width = self.height = cell_size
+        self.image = pygame.Surface([self.width, self.height])
+        self.rect = self.image.get_rect()
+
+        self.rect.x = self.x = x
+        self.rect.y = self.y = y
+        
         self.row = row
         self.column = column
         self.board = board
         
-        #Rect image 
-        self.image = pygame.Surface([self.width, self.height])
-        self.rect = self.image.get_rect()
-        self.rect.x = self.x
-        self.rect.y = self.y
+        self.cross = pygame.image.load("images/cross.png").convert_alpha()  
+        self.circle = pygame.image.load("images/circle.png").convert_alpha()  
         
         self.set = False
         self.symbol = None
-        self.colour = WHITE
+        self.colour = colours.WHITE
         
         #For every instantiation of a tile object the ID is incremented and used within the HASH dunder for unique identification
         Tile.tile_num += 1  
@@ -58,7 +54,7 @@ class Tile(pygame.sprite.Sprite):
         """
         self.symbol = self.interface.current_player.symbol
         self.set = True
-        self.colour = GOLD
+        self.colour = colours.GOLD
         self.board.total += 1
 
 
@@ -72,9 +68,9 @@ class Tile(pygame.sprite.Sprite):
         """   
         if not self.set:
             self.symbol = self.interface.current_player.symbol
-            self.colour = GREEN
+            self.colour = colours.GREEN
         else:
-            self.colour = RED
+            self.colour = colours.RED
 
         
     
@@ -87,9 +83,9 @@ class Tile(pygame.sprite.Sprite):
             """Loads the image asset to its equivalent symbol"""
             match symbol:
                 case "O":
-                    return Tile.circle
+                    return self.circle
                 case "X":
-                    return Tile.cross
+                    return self.cross
                 case "_":
                     return None
 
@@ -115,6 +111,6 @@ class Tile(pygame.sprite.Sprite):
         
         When the user highlights over a new tile, we want to reset the previous one to its original state.
         If the tile has been set then we must keep its current symbol shown otherwise no choice would ever be logged"""
-        self.colour = WHITE
+        self.colour = colours.WHITE
         if not self.set:
             self.symbol = None

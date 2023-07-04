@@ -1,8 +1,8 @@
 from tile import Tile
+
 import pygame
 import numpy as np
 import os
-
 import colours
 
 class Board(pygame.sprite.Sprite):

@@ -1,17 +1,12 @@
-import pygame
 from pygame.locals import *
 from board import Board
 from player import Player
-import os
 
-WHITE = (250, 250, 250)
-BLACK = (0, 0, 0)
-GREEN = (50,205,50)
-GOLD = (255,215,0)
+import pygame
+import os
 
 class TicTacToe:
     def __init__(self, board_size):
-
         self._running = True
         self.size = self.width, self.height = 600, 600 
         self.board_size = board_size

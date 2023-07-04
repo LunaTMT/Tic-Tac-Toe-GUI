@@ -2,7 +2,6 @@ import pygame
 import colours
 
 class Tile(pygame.sprite.Sprite):
-
     tile_num = 0
 
     def __init__(self, interface, x, y, cell_size, row, column, board) -> None:

@@ -7,6 +7,8 @@ GOLD = (255,215,0)
 
 class Tile(pygame.sprite.Sprite):
 
+    cross = pygame.image.load("images/cross.png").convert_alpha()  
+    circle = pygame.image.load("images/circle.png").convert_alpha()  
     tile_num = 0
 
     def __init__(self, interface, x, y, cell_size, row, column, board) -> None:
@@ -85,9 +87,9 @@ class Tile(pygame.sprite.Sprite):
             """Loads the image asset to its equivalent symbol"""
             match symbol:
                 case "O":
-                    return pygame.image.load("images/circle.png").convert_alpha()   
+                    return Tile.circle
                 case "X":
-                    return pygame.image.load("images/cross.png").convert_alpha()  
+                    return Tile.cross
                 case "_":
                     return None
 
@@ -104,10 +106,7 @@ class Tile(pygame.sprite.Sprite):
             return True
         return False
     
-    def default(self) -> None:
-        """Default load, identical to __init__ for our tile object"""
-        self.sym = None
-        self.colour = WHITE
+
 
     def reset(self) -> None:
         """Resets a tile

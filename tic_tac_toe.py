@@ -11,25 +11,25 @@ GOLD = (255,215,0)
 
 class TicTacToe:
     def __init__(self, board_size):
-        pygame.init()
+
         self._running = True
         self.size = self.width, self.height = 600, 600 
+        self.board_size = board_size
+        self.turn = 0
+        self.current_tile = None
+        self.finished = False
+
+    def on_init(self):
+        pygame.init()
         self.screen = pygame.display.set_mode(self.size, pygame.HWSURFACE | pygame.DOUBLEBUF)
         self.screen.fill(WHITE) 
-
         self.all_sprites = pygame.sprite.Group()
-        
-        self.turn = 0
+        self._running = True
+
         self.players = [Player("JIM", "X"), Player("JOHN", "O")]
         self.current_player = self.players[0]
-        self.current_tile = None
 
-        self.board_size = board_size
-        self.board = Board(self, board_size)
-
-        self.finished = False
-        
-        self.clear = lambda: os.system('clear')
+        self.board = Board(self, self.board_size)
  
     def event(self, event):
         if not self.finished:
@@ -57,6 +57,7 @@ class TicTacToe:
                 self.all_sprites = pygame.sprite.Group()
                 self.board = Board(self, self.board_size)
                 self.finished = False
+                self.current_player = self.players[0]
                 self.turn = 0
 
     def loop(self):
@@ -70,6 +71,9 @@ class TicTacToe:
         pygame.quit()
 
     def run(self):
+        if self.on_init() == False:
+            self._running = False
+
         while( self._running ):
             for event in pygame.event.get():
                 self.event(event)
@@ -83,8 +87,7 @@ class TicTacToe:
         to modulus any number by 2 will always produce 0 or 1, 
         this can be used in conjunction with the parity of numbers (even, odd, even, odd, even, odd -->)
         to constatly produce an iterator switching between 0 and 1
-        This is used to switch between the players in the 2 length player list
-        """
+        This is used to switch between the players in the 2 length player list"""
         self.turn += 1
         self.current_player = self.players[self.turn % 2]
         

@@ -57,7 +57,7 @@ This project is really intended to practice my OO skills as well as gain a stron
 
 For this years large project aim, I have set myself the challenge of creating an automated chess board, not only in python and pygame but as a physical board in reality that one can manipulate. It certainly seem plausible and I making my way through towards this goal by starting with smaller projects.&#x20;
 
-I know they're currently very simple but my main focus is to truly hone software development, object oriented programming and mathematical skills.
+I know they're currently very simple but my main focus is to truly hone my software development, object oriented programming and mathematical skills.
 
 #### Written - 05/07/2023
 

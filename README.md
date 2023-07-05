@@ -2,8 +2,6 @@
 description: >-
   # This project is a very basic Tic Tac Toe game created with Pygame for
   Python.
-cover: .gitbook/assets/pygame_logo (2).png
-coverY: 0
 ---
 
 # Tic Tac Toe

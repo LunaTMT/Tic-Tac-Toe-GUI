@@ -4,12 +4,6 @@ This project is really intended to practice my OO skills as well as gain a stron
 
 ## Demonstration
 
-```
-<p align="center">
-  <img src="https://media.giphy.com/media/9hgXVmpEj7nHwFOrkn/giphy.gif" alt="3X3"/>
-</p>
-```
-
 <div align="center">
 
 <img src="https://media.giphy.com/media/9kV2r0AzcC23PMtozt/giphy.gif" alt="4X4">
@@ -20,4 +14,8 @@ This project is really intended to practice my OO skills as well as gain a stron
 
 
 
-![3X3](https://media.giphy.com/media/9hgXVmpEj7nHwFOrkn/giphy.gif)
+<div align="center">
+
+<img src="https://media.giphy.com/media/9hgXVmpEj7nHwFOrkn/giphy.gif" alt="3X3">
+
+</div>

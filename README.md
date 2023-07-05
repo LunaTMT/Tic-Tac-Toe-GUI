@@ -1,3 +1,8 @@
+---
+cover: .gitbook/assets/pygame_logo (1).png
+coverY: 0
+---
+
 # Tic Tac Toe
 
 This project is really intended to practice my OO skills as well as gain a stronger grasp on the PyGame framework.

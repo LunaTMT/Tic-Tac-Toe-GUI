@@ -8,12 +8,15 @@ This project is a very basic Tic Tac Toe game created with Pygame for Python.
 
 * The board size k can be set to any number within the main.py file
 
-<pre class="language-python" data-title="main.py" data-line-numbers data-full-width="false"><code class="lang-python">if __name__ == "__main__":
-        <a data-footnote-ref href="#user-content-fn-1">board_size = </a>3
+{% code title="main.py" lineNumbers="true" fullWidth="false" %}
+```python
+if __name__ == "__main__":
+        board_size = 3 #(K)
         ttt = TicTacToe(board_size)
         ttt.run()
 
-</code></pre>
+```
+{% endcode %}
 
 * The game currently only allows for player versus player.
 * Once a game has finished and the user has clicked the screen, a new game instance is started.
@@ -54,5 +57,3 @@ For this years large project aim, I have set myself the challenge of creating an
 I know they're currently very simple but my main focus is to truly hone my software development, object oriented programming and mathematical skills.
 
 #### Written - 05/07/2023
-
-[^1]: set to k

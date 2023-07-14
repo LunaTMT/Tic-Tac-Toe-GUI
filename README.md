@@ -8,7 +8,6 @@ This project is a very basic Tic Tac Toe game created with Pygame for Python.
 
 * The board size k can be set to any number within the main.py file
 
-{% code title="main.py" lineNumbers="true" fullWidth="false" %}
 ```python
 if __name__ == "__main__":
         board_size = 3 #(K)

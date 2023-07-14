@@ -15,7 +15,6 @@ if __name__ == "__main__":
         ttt.run()
 
 ```
-{% endcode %}
 
 * The game currently only allows for player versus player.
 * Once a game has finished and the user has clicked the screen, a new game instance is started.

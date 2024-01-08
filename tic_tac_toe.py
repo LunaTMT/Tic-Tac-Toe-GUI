@@ -17,7 +17,7 @@ class TicTacToe:
     def on_init(self):
         pygame.init()
         self.screen = pygame.display.set_mode(self.size, pygame.HWSURFACE | pygame.DOUBLEBUF)
-        self.screen.fill(WHITE) 
+        self.screen.fill((0, 0, 0)) 
         self.all_sprites = pygame.sprite.Group()
         self._running = True
 

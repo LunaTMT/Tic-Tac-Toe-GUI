@@ -1,8 +1,9 @@
 # Tic Tac Toe
 
-### Description
-
-This project is a very basic Tic Tac Toe game created with Pygame for Python.
+### Installation
+Please insure you have python installed
+Once complete, write the following command in your terminal:
+        pip install pygame
 
 ### Features
 

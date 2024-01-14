@@ -1,9 +1,8 @@
 # Tic Tac Toe
 
 ### Installation
-Please insure you have python installed
-Once complete, write the following command in your terminal:
-        pip install pygame
+* Please insure you have python installed
+* Once complete, write the following command in your terminal: - pip install pygame
 
 ### Features
 
